@@ -1,5 +1,3 @@
-import '../scss/app.scss';
-
 export const BreadCrumbs = () => {
   return (
     <section className="breadcrumbs">

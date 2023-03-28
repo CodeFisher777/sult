@@ -71,6 +71,9 @@
       }
 
       &__tocart {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 184px;
         height: 59px;
         font-weight: 700;

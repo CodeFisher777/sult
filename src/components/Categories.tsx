@@ -1,7 +1,5 @@
 import React from 'react';
 
-import '../scss/categories.scss';
-
 type CategoriesProps = {
   value: string;
   onChangeCategory: any;

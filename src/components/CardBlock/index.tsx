@@ -1,6 +1,7 @@
-import '../../scss/cards.scss';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../../redux/cart/slice';
+import { selectCartItemById } from '../../redux/card/slice';
 
 type CardBlockProps = {
   title: string;
@@ -28,7 +29,8 @@ export const CardBlock: React.FC<CardBlockProps> = ({
 }) => {
   const dispatch = useDispatch();
   //@ts-ignore
-  const cartItem = useSelector((state) => state.cart.items.find((obj) => obj.id === id));
+  const cartItem = useSelector(selectCartItemById(id));
+  //@ts-ignore
   const addedCount = cartItem ? cartItem.count : 0;
   const onClickAdd = () => {
     const item = {
@@ -43,16 +45,20 @@ export const CardBlock: React.FC<CardBlockProps> = ({
   };
   return (
     <div className="card-item">
-      <div className="card-item-mainimg">
-        {' '}
-        <img src={imageUrl} alt="" />
-      </div>
+      <Link to={`/card/${id}`}>
+        <div className="card-item-mainimg">
+          {' '}
+          <img src={imageUrl} alt="" />
+        </div>
+      </Link>
       <div className="card-item-v">
         <img src="./images/littlebootle.svg" alt="" />
         <p>{size} мл</p>
       </div>
       <div className="card-item-parameters">
-        <p>{title}</p>
+        <Link to={`/card/${id}`}>
+          <p>{title}</p>
+        </Link>
         <p>
           <span>Штрихкод: </span>
           {code}

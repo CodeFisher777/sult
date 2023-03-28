@@ -1,4 +1,3 @@
-import '../scss/pagination.scss';
 import ReactPaginate from 'react-paginate';
 
 type PaginationProps = {

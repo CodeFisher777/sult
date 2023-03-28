@@ -1,5 +1,5 @@
 import React from 'react';
-import '../scss/filters.scss';
+
 import { CategoriesVertical } from './CategoriesVertical';
 
 type FiltersProps = {

@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCategoryId } from '../redux/filter/slice';
-import '../scss/categoriesvertical.scss';
 
 export function CategoriesVertical() {
   const dispatch = useDispatch();

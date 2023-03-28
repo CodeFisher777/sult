@@ -1,28 +1,42 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './FullCardItem.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem, minusItem } from '../../redux/cart/slice';
+import { selectCartItemById } from '../../redux/card/slice';
 
-export const FullcardItem = () => {
+export const FullcardItem = ({ card }) => {
+  const dispatch = useDispatch();
+  const { id } = card;
+  const onClickPlus = () => {
+    dispatch(addItem(card));
+  };
+  const onClickMinus = () => {
+    dispatch(minusItem(id));
+  };
+  const cartItem = useSelector(selectCartItemById(id));
+  const addedCount = cartItem ? cartItem.count : 0;
   return (
     <div className={styles.root}>
-      <img className={styles.root__imgmain} src="./images/AOS.png" alt="" />
+      <img className={styles.root__imgmain} src={card.imageUrl} alt="" />
       <div className={styles.root__text}>
         <p className={styles.root__text__instock}>В наличии</p>
-        <p className={styles.root__text__name}>
-          BioMio BIO-SOAP Экологичное туалетное мыло. Литсея и бергамот
-        </p>
+        <p className={styles.root__text__name}>{card.title}</p>
         <div className={styles.root__text__v}>
-          <img src="./images/littlebootle.svg" alt="" /> <p>90 г</p>
+          <img src="./images/littlebootle.svg" alt="" /> <p>{card.size} г</p>
         </div>
         <div className={styles.root__text__pricecart}>
-          <p>48,76 ₸</p>
+          <p>{card.price} ₸</p>
           <div className={styles.root__text__pricecart__buttons}>
-            <button>-</button>
-            <p>1</p>
-            <button>+</button>
+            <button disabled={addedCount === 0} onClick={onClickMinus}>
+              -
+            </button>
+            <p>{addedCount}</p>
+            <button onClick={onClickPlus}>+</button>
           </div>
-          <button className={styles.root__text__pricecart__tocart}>
+          <Link to="/cart" className={styles.root__text__pricecart__tocart}>
             В корзину <img src="./images/cartitem.svg" alt="" />
-          </button>
+          </Link>
         </div>
         <div className={styles.root__text__linkblock}>
           <button>
@@ -38,48 +52,44 @@ export const FullcardItem = () => {
         <div className={styles.root__text__parameters}>
           <ul>
             <li>
-              <span>Производитель:</span> <span>BioMio</span>
+              <span>Производитель:</span> <span>{card.manufacture}</span>
             </li>
             <li>
-              <span>Бренд:</span> <span>BioMio</span>
+              <span>Бренд:</span> <span>{card.brand}</span>
             </li>
             <li>
               <span>Артикул:</span> <span>37653586</span>
             </li>
             <li>
-              <span>Штрихкод:</span> <span>735735875287452587</span>
+              <span>Штрихкод:</span> <span>{card.code}</span>
             </li>
           </ul>
           <p className={styles.root__text__description}>Описание ▲</p>
-          <p className={styles.root__text__lorem}>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, voluptatem expedita
-            deserunt eos assumenda vel mollitia nisi. Impedit saepe cumque temporibus dolores fuga,
-            velit veniam odit consectetur incidunt quam ullam!
-          </p>
+          <p className={styles.root__text__lorem}>{card.descrition}</p>
           <div className={styles.root__text__line}></div>
           <div className={styles.root__text__options}>
             <p>Характеристики ▲</p>
             <ul>
               <li>
-                <span>Назначение:</span> <span>BioMio</span>
+                <span>Назначение:</span> <span>{card.title}</span>
               </li>
               <li>
                 <span>Тип:</span> <span>BioMio</span>
               </li>
               <li>
-                <span>Производитель:</span> <span>633435</span>
+                <span>Производитель:</span> <span>{card.manufacture}</span>
               </li>
               <li>
-                <span>Бренд:</span> <span>346346</span>
+                <span>Бренд:</span> <span>{card.brand}</span>
               </li>
               <li>
                 <span>Артикул:</span> <span>364363</span>
               </li>
               <li>
-                <span>Штрихкод:</span> <span>346363</span>
+                <span>Штрихкод:</span> <span>{card.code}</span>
               </li>
               <li>
-                <span>Вес:</span> <span>90 г</span>
+                <span>Вес:</span> <span>{card.size} г</span>
               </li>
               <li>
                 <span>Объём:</span> <span>90 г</span>

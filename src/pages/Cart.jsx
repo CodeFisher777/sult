@@ -27,7 +27,9 @@ export const Cart = () => {
           <div className="cart-line"></div>
           <div className="cart-bottom">
             <ModalWindow active={modalActive} setActive={setModalActive}></ModalWindow>
-            <button onClick={onTakeOrder}>Оформить заказ</button>
+            <button className="cart-bottom-order" onClick={onTakeOrder}>
+              Оформить заказ
+            </button>
             <p>{totalPrice} ₸</p>
           </div>
         </div>

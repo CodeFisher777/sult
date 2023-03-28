@@ -32,14 +32,18 @@
       }
     }
     &-parameters {
-      p:first-child {
-        font-weight: 500;
-        font-size: 16px;
-        width: 280px;
-        line-height: 130%;
-        padding-top: 10px;
-        padding-bottom: 20px;
+      a {
+        p:first-child {
+          font-weight: 500;
+          font-size: 16px;
+          width: 280px;
+          line-height: 130%;
+          padding-top: 10px;
+          padding-bottom: 20px;
+          color: black;
+        }
       }
+
       span {
         color: #3f4e65;
         font-weight: 300;
