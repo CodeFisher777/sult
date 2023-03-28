@@ -10,6 +10,7 @@ import '../src/scss/app.scss';
 
 function App() {
   const location = useLocation();
+
   return (
     <>
       <div className="wrapper">
@@ -21,7 +22,11 @@ function App() {
           <Route path="/card/:id" element={<FullCard />} />
           <Route path="/Admin" element={<h1>Admin</h1>} />
         </Routes>
-        <Footer />
+
+        {
+          //@-ts-ignore
+          !location.pathname.includes('card') && <Footer />
+        }
       </div>
     </>
   );

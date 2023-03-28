@@ -1,7 +1,9 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './FullCardItem.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem, minusItem } from '../../redux/cart/slice';
+
+import { addItem, minusItem, addOneItem } from '../../redux/cart/slice';
 import { selectCartItemById } from '../../redux/card/slice';
 
 type FullcardItemProps = {
@@ -20,14 +22,27 @@ type FullcardItemProps = {
 export const FullcardItem: React.FC<FullcardItemProps> = ({ card }) => {
   const dispatch = useDispatch();
   const { id } = card;
-  const onClickPlus = () => {
-    dispatch(addItem(card));
+  const cartItem = useSelector(selectCartItemById(id));
+  const addedCount = cartItem ? cartItem.count : 0;
+  const [itemCount, setItemCount] = React.useState(addedCount);
+
+  const onPlus = () => {
+    setItemCount(itemCount + 1);
   };
+
+  const onMinus = () => {
+    setItemCount(itemCount - 1);
+  };
+
+  const cardPlusCount = { ...card, itemCount };
+  const onClickPlus = () => {
+    dispatch(addOneItem(cardPlusCount));
+  };
+
   const onClickMinus = () => {
     dispatch(minusItem(id));
   };
-  const cartItem = useSelector(selectCartItemById(id));
-  const addedCount = cartItem ? cartItem.count : 0;
+
   return (
     <div className={styles.root}>
       <img className={styles.root__imgmain} src={card.imageUrl} alt="" />
@@ -40,15 +55,15 @@ export const FullcardItem: React.FC<FullcardItemProps> = ({ card }) => {
         <div className={styles.root__text__pricecart}>
           <p>{card.price} ₸</p>
           <div className={styles.root__text__pricecart__buttons}>
-            <button disabled={addedCount === 0} onClick={onClickMinus}>
+            <button disabled={itemCount === 0} onClick={onMinus}>
               -
             </button>
-            <p>{addedCount}</p>
-            <button onClick={onClickPlus}>+</button>
+            <p>{itemCount}</p>
+            <button onClick={onPlus}>+</button>
           </div>
-          <Link to="/cart" className={styles.root__text__pricecart__tocart}>
+          <button onClick={onClickPlus} className={styles.root__text__pricecart__tocart}>
             В корзину <img src="./images/cartitem.svg" alt="" />
-          </Link>
+          </button>
         </div>
         <div className={styles.root__text__linkblock}>
           <button>
