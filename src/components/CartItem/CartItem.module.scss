@@ -1,0 +1,78 @@
+.line {
+  width: 100%;
+  opacity: 0.3;
+  border: 1px dashed #3f4e65;
+}
+
+.root {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px 0;
+  &__imgmain {
+    width: 281px;
+    height: 191px;
+    object-fit: contain;
+  }
+  &__text {
+    width: 480px;
+    &__v {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      img {
+        margin-right: 8px;
+        opacity: 0.5;
+      }
+
+      p {
+        font-size: 12px;
+        color: #3f4e65;
+      }
+    }
+    &__name {
+      font-weight: 700;
+      font-size: 30px;
+      line-height: 36px;
+      padding: 10px 0;
+    }
+    &__description {
+      font-weight: 300;
+      font-size: 12px;
+      line-height: 18px;
+    }
+  }
+  &__vertline {
+    width: 0px;
+    height: 49px;
+    opacity: 0.2;
+    border: 1px dashed #3f4e65;
+  }
+  &__buttons {
+    width: 113px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    button {
+      width: 34px;
+      height: 23px;
+      background: linear-gradient(
+        90deg,
+        rgba(255, 198, 80, 0.3) 0%,
+        rgba(254, 202, 110, 0.3) 97.25%
+      );
+      border-radius: 1000px;
+    }
+  }
+  &__price {
+    padding: 44px 0;
+    font-weight: 700;
+    font-size: 30px;
+  }
+  &__del {
+    width: 59px;
+    height: 59px;
+    background: #ffc85e;
+    border-radius: 79px;
+  }
+}

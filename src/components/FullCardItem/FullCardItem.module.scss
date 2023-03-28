@@ -1,0 +1,137 @@
+.root {
+  display: flex;
+  justify-content: space-between;
+
+  &__imgmain {
+    width: 664px;
+    height: 471px;
+    object-fit: contain;
+  }
+  &__text {
+    ul {
+      padding-bottom: 25px;
+      li {
+        padding-bottom: 5px;
+        span:first-child {
+          font-weight: 300;
+          color: #3f4e65;
+        }
+        span:last-child {
+          font-weight: 500;
+        }
+      }
+    }
+    max-width: 628px;
+    &__instock {
+      font-weight: 500;
+      color: #1fd85d;
+    }
+    &__name {
+      padding: 10px 0;
+      font-weight: 400;
+      font-size: 30px;
+      line-height: 150%;
+    }
+    &__v {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      img {
+        margin-right: 5px;
+      }
+      p {
+        font-size: 12px;
+      }
+    }
+    &__pricecart {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 30px 0;
+      p:first-child {
+        font-weight: 800;
+        font-size: 30px;
+      }
+      &__buttons {
+        margin: 0 40px;
+        width: 113px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        button {
+          width: 34px;
+          height: 23px;
+          background: linear-gradient(
+            90deg,
+            rgba(255, 198, 80, 0.3) 0%,
+            rgba(254, 202, 110, 0.3) 97.25%
+          );
+          border-radius: 1000px;
+        }
+      }
+
+      &__tocart {
+        width: 184px;
+        height: 59px;
+        font-weight: 700;
+        color: #ffffff;
+        background: #ffc85e;
+        border-radius: 79px;
+      }
+    }
+    &__linkblock {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      max-width: 600px;
+      padding-bottom: 35px;
+      button {
+        background: #ffffff;
+        box-shadow: 0px 15px 70px -11px rgba(43, 28, 1, 0.04);
+        border-radius: 10px;
+        height: 77px;
+      }
+      button:first-child {
+        width: 77px;
+      }
+      button:nth-child(2) {
+        padding: 0 35px;
+        width: 316px;
+        margin: 0 10px;
+      }
+      button:last-child {
+        width: 186px;
+        font-weight: 700;
+        img {
+          margin-left: 12px;
+        }
+      }
+    }
+    &__parameters {
+    }
+    &__description {
+      font-weight: 500;
+      font-size: 16px;
+      padding-bottom: 15px;
+    }
+    &__lorem {
+      font-weight: 300;
+      font-size: 12px;
+      line-height: 150%;
+      color: #3f4e65;
+    }
+    &__line {
+      width: 270px;
+      border: 1px dashed #3f4e65;
+      opacity: 0.3;
+      margin: 20px 0;
+    }
+    &__options {
+      p:first-child {
+        font-weight: 500;
+        font-size: 16px;
+        padding-bottom: 15px;
+      }
+    }
+  }
+}

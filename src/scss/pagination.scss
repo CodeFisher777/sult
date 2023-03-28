@@ -1,0 +1,38 @@
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 234px;
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 75px;
+  .previous {
+    a {
+      font-size: 32px;
+      font-weight: 500;
+      color: #ffc85e;
+    }
+  }
+  .next {
+    a {
+      font-size: 32px;
+      font-weight: 500;
+      color: #ffc85e;
+    }
+  }
+  li {
+    cursor: pointer;
+    a {
+      font-weight: 500;
+    }
+  }
+  .selected {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(90deg, rgba(255, 198, 80, 0.3) 0%, rgba(254, 202, 110, 0.3) 97.25%);
+    border-radius: 1000px;
+  }
+}

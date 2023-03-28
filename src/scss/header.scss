@@ -1,0 +1,206 @@
+.header {
+  &-stick {
+    height: 39px;
+    opacity: 0.1;
+    border: 1px dashed #000000;
+  }
+  &-line {
+    height: 1px;
+    background: #3f4e65;
+    opacity: 0.2;
+  }
+  &-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &-info {
+      width: 493px;
+      padding: 14px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &-address {
+        width: 275px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &-text {
+          &-head {
+            font-weight: 600;
+            line-height: 18px;
+          }
+          &-parag {
+            font-size: 12px;
+            font-weight: 300;
+          }
+        }
+      }
+      &-email {
+        width: 178px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        &-text {
+          &-head {
+            font-weight: 600;
+            line-height: 18px;
+          }
+          &-parag {
+            font-size: 12px;
+            font-weight: 300;
+          }
+        }
+      }
+    }
+    &-menu {
+      ul {
+        width: 512px;
+        padding: 16px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        li {
+          a {
+            color: #3f4e65;
+          }
+        }
+      }
+    }
+  }
+  &-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &-left {
+      width: 960px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &-logo {
+        padding: 25px 38px 25px 0;
+      }
+
+      &-catalog {
+        width: 192px;
+        height: 59px;
+        background: #ffc85e;
+        border-radius: 79px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        p {
+          padding-right: 12px;
+          font-weight: 700;
+          color: #ffffff;
+        }
+      }
+      &-search {
+        margin-left: 15px;
+        margin-right: 35px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 263px;
+        position: relative;
+        input {
+          width: 263px;
+          height: 59px;
+          background-color: #ededed;
+          border-radius: 36px;
+          padding-left: 20px;
+          font-size: 12px;
+        }
+        &-circle {
+          width: 39px;
+          height: 39px;
+          background: #ffc85e;
+          border-radius: 1000px;
+          position: absolute;
+          left: 210px;
+        }
+        &-call {
+          width: 261px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          &-text {
+            display: block;
+            text-align: end;
+            p:first-child {
+              font-weight: 600;
+            }
+            p:nth-child(2) {
+              font-size: 12px;
+              padding: 5px 0;
+              color: #3f4e65;
+            }
+            p:last-child {
+              font-size: 10px;
+              text-decoration-line: underline;
+              color: #3f4e65;
+            }
+          }
+        }
+      }
+    }
+    &-right {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 378px;
+      button {
+        width: 200px;
+        height: 59px;
+        background: #ffc85e;
+        border-radius: 79px;
+        font-weight: 700;
+        color: #ffffff;
+        img {
+          padding-left: 14px;
+        }
+      }
+      &-cart {
+        width: 126px;
+        height: 34 px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        &-image {
+          width: 55px;
+          height: 35px;
+          position: relative;
+        }
+        &-count {
+          position: absolute;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          left: 32px;
+          bottom: 20px;
+          width: 28px;
+          height: 28px;
+          background: #ffc85e;
+          border: 3px solid #ffffff;
+          border-radius: 30px;
+          text-align: center;
+          color: #ffffff;
+        }
+        &-text {
+          p:first-child {
+            font-size: 12px;
+            font-weight: 300;
+            padding-bottom: 5px;
+          }
+          p:last-child {
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+}
