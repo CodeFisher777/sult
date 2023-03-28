@@ -1,11 +1,23 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './FullCardItem.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem, minusItem } from '../../redux/cart/slice';
 import { selectCartItemById } from '../../redux/card/slice';
 
-export const FullcardItem = ({ card }) => {
+type FullcardItemProps = {
+  card: {
+    id: number;
+    imageUrl: string;
+    title: string;
+    size: number;
+    price: number;
+    brand: string;
+    manufacture: string;
+    code: number;
+    descrition: string;
+  };
+};
+export const FullcardItem: React.FC<FullcardItemProps> = ({ card }) => {
   const dispatch = useDispatch();
   const { id } = card;
   const onClickPlus = () => {

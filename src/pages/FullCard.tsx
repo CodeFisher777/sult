@@ -3,8 +3,18 @@ import { useParams } from 'react-router-dom';
 import { FullcardItem } from '../components/FullCardItem/FullcardItem';
 import axios from 'axios';
 
-export const FullCard = () => {
-  const [card, setCard] = React.useState();
+export const FullCard: React.FC = () => {
+  const [card, setCard] = React.useState<{
+    id: number;
+    imageUrl: string;
+    title: string;
+    size: number;
+    price: number;
+    brand: string;
+    manufacture: string;
+    code: number;
+    descrition: string;
+  }>();
   const { id } = useParams();
   React.useEffect(() => {
     async function fetchCard() {
@@ -18,7 +28,7 @@ export const FullCard = () => {
     fetchCard();
   }, []);
   if (!card) {
-    return 'Загрузка';
+    return <>Загрузка...</>;
   }
   return (
     <div className="container">

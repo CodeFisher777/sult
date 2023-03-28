@@ -1,17 +1,24 @@
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectCart } from '../redux/cart/slice';
+import logo from '../assets/images/logo.svg';
+import gps from '../assets/images/gps.svg';
+import email from '../assets/images/email.svg';
+import search from '../assets/images/search.svg';
+import arrowDown from '../assets/images/arrow-down.svg';
+import cart from '../assets/images/cart.svg';
+import photo from '../assets/images/photo.png';
 
 export function Header() {
   const { items, totalPrice } = useSelector(selectCart);
-  const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+  const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);
   return (
     <header className="header">
       <div className="container">
         <div className="header-top">
           <div className="header-top-info">
             <div className="header-top-info-address">
-              <img src="./images/gps.svg" alt="location" />
+              <img src={gps} alt="location" />
               <div className="header-top-info-address-text">
                 <p className="header-top-info-address-text-head">
                   г. Кокчетав, ул. Ж. Ташенова 129Б
@@ -21,7 +28,7 @@ export function Header() {
             </div>
             <div className="header-stick"></div>
             <div className="header-top-info-email">
-              <img src="./images/email.svg" alt="email" />
+              <img src={email} alt="email" />
               <div className="header-top-info-email-text">
                 <p className="header-top-info-email-text-head">opt.sultan@mail.ru</p>
                 <p className="header-top-info-email-text-parag">На связи в любое время</p>
@@ -54,7 +61,7 @@ export function Header() {
         <div className="header-bottom">
           <div className="header-bottom-left">
             <Link to="/">
-              <img className="header-bottom-left-logo" src="./images/logo.svg" alt="" />
+              <img className="header-bottom-left-logo" src={logo} alt="" />
             </Link>
             <a className="header-bottom-left-catalog" href="#">
               <p>Каталог</p>
@@ -63,7 +70,7 @@ export function Header() {
             <div className="header-bottom-left-search">
               <input type="text" placeholder="Поиск..." />
               <button className="header-bottom-left-search-circle">
-                <img src="./images/search.svg" alt="" />
+                <img src={search} alt="" />
               </button>
             </div>
             <div className="header-bottom-left-search-call">
@@ -72,19 +79,19 @@ export function Header() {
                 <p>время работы: 9:00-20:00</p>
                 <p>Заказать звонок</p>
               </div>
-              <img src="./images/photo.png" alt="" />
+              <img src={photo} alt="" />
               <div className="header-stick"></div>
             </div>
           </div>
           <div className="header-bottom-right">
             <button>
               Прайс-лист
-              <img src="./images/arrow-down.svg" alt="" />
+              <img src={arrowDown} alt="" />
             </button>
             <div className="header-stick"></div>
             <div className="header-bottom-right-cart">
               <Link to="/cart" className="header-bottom-right-cart-image">
-                <img src="./images/cart.svg" alt="" />
+                <img src={cart} alt="" />
                 <div className="header-bottom-right-cart-count">
                   <span>{totalCount}</span>
                 </div>

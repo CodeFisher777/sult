@@ -12,8 +12,12 @@ export const Cart = () => {
 
   const [modalActive, setModalActive] = React.useState(false);
   const onTakeOrder = () => {
-    setModalActive(true);
-    dispatch(clearItems());
+    if (totalPrice) {
+      setModalActive(true);
+      dispatch(clearItems());
+    } else {
+      alert('В корзине нет товаров для заказа');
+    }
   };
   return (
     <>
