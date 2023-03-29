@@ -36,23 +36,23 @@ body {
   margin-right: auto;
 }
 
-.breadcrumbs {
-  padding-top: 45px;
-  padding-bottom: 50px;
-  &-line {
-    height: 16px;
-    opacity: 0.3;
-    border: 1px dashed #3f4e65;
-  }
-  ul {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    li {
-      padding-right: 10px;
-    }
-  }
-}
+// .breadcrumbs {
+//   padding-top: 45px;
+//   padding-bottom: 50px;
+//   &-line {
+//     height: 16px;
+//     opacity: 0.3;
+//     border: 1px dashed #3f4e65;
+//   }
+//   ul {
+//     display: flex;
+//     justify-content: left;
+//     align-items: center;
+//     li {
+//       padding-right: 10px;
+//     }
+//   }
+// }
 
 .nameandsort {
   display: flex;

@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 
 import { CategoriesVertical } from './CategoriesVertical';
 
 type FiltersProps = {
-  arrBrand: any;
+  items: any;
 };
 
-export const Filters: React.FC<FiltersProps> = ({ arrBrand }) => {
+export const Filters: React.FC<FiltersProps> = ({ items }) => {
   const [searchValue, setSearchValue] = React.useState('');
-
+  const [minPrice, setMinPrice] = React.useState('');
+  const [maxPrice, setMaxPrice] = React.useState('');
+  const [checkBrand, setCheckBrand] = React.useState('');
   //@ts-ignore
-  const uniqArr = [...new Set(arrBrand.map((items) => items.brand))];
+  const uniqArrBrand = [...new Set(items.map((items) => items.brand))];
+
   const [filteredBrand, setFilteredBrand] = React.useState([]);
+  const [filteredPrice, setFilteredPrice] = React.useState([]);
   //@ts-ignore
   const [openBrand, setOpenBrand] = React.useState(false);
   let ulClasses = ['filters-brand-checkboxes'];
@@ -22,19 +26,27 @@ export const Filters: React.FC<FiltersProps> = ({ arrBrand }) => {
     //@ts-ignore
     ulClasses = ['filters-brand-checkboxes'];
   }
-  const onChangeOpen = () => {
-    if (uniqArr.length > 4) {
+  const onChangeOpen = (event: React.MouseEvent<HTMLLabelElement>) => {
+    if (uniqArrBrand.length > 4) {
       setOpenBrand(!openBrand);
     } else {
       setOpenBrand(false);
     }
   };
+  const onShowFiltered = (event: React.MouseEvent<HTMLButtonElement>) => {
+    //@ts-ignore
+    setFilteredPrice(
+      //@ts-ignore
+      items.filter((item) => item.price >= Number(minPrice) && item.price <= Number(maxPrice)),
+    );
+    console.log(filteredPrice);
+  };
 
-  const onSearch = () => {
+  const onSearch = (event: React.MouseEvent<HTMLButtonElement>) => {
     //@ts-ignore
     setFilteredBrand(uniqArr.filter((item) => item.toLowerCase() == searchValue.toLowerCase()));
   };
-  const arrRender = filteredBrand.length !== 0 ? filteredBrand : uniqArr;
+  const arrRender = filteredBrand.length !== 0 ? filteredBrand : uniqArrBrand;
 
   return (
     <div className="filters">
@@ -43,15 +55,23 @@ export const Filters: React.FC<FiltersProps> = ({ arrBrand }) => {
         Цена <b>₸</b>
       </p>
       <div className="filters-price">
-        <input type="text" placeholder="0" />
+        <input
+          onChange={(event: ChangeEvent<HTMLInputElement>) => setMinPrice(event.target.value)}
+          type="text"
+          placeholder="0"
+        />
         <div>-</div>
-        <input type="text" placeholder="10 000" />
+        <input
+          onChange={(event: ChangeEvent<HTMLInputElement>) => setMaxPrice(event.target.value)}
+          type="text"
+          placeholder="10 000"
+        />
       </div>
       <div className="filters-brand">
         <p className="filters-brand-firstp">Бренд</p>
         <div className="filters-brand-search">
           <input
-            onChange={(event) => setSearchValue(event.target.value)}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => setSearchValue(event.target.value)}
             type="text"
             placeholder="Поиск..."
           />
@@ -65,7 +85,7 @@ export const Filters: React.FC<FiltersProps> = ({ arrBrand }) => {
         >
           {arrRender.map((items: any, i) => (
             <li key={i}>
-              <input type="checkbox" />
+              <input onChange={(event) => setCheckBrand(event.target.value)} type="checkbox" />
               <p className="filters-brand-checkboxes-name">{items}</p>
               <p>({items.length})</p>
             </li>
@@ -76,7 +96,7 @@ export const Filters: React.FC<FiltersProps> = ({ arrBrand }) => {
         </label>
       </div>
       <div className="filters-brand-buttons">
-        <button>Показать</button>
+        <button onClick={onShowFiltered}>Показать</button>
         <button>
           <img src="./images/trash.svg" alt="" />
         </button>

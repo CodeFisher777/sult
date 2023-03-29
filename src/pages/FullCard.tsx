@@ -1,11 +1,12 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { FullcardItem } from '../components/FullCardItem/FullcardItem';
+
 import axios from 'axios';
 
 export const FullCard: React.FC = () => {
   const [card, setCard] = React.useState<{
-    id: number;
+    id: string;
     imageUrl: string;
     title: string;
     size: number;

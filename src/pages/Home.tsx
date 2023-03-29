@@ -7,26 +7,28 @@ import { Pagination } from '../components/Pagination';
 import { Filters } from '../components/Filters';
 import { CardBlock } from '../components/CardBlock';
 import { Skeleton } from '../components/CardBlock/Skeleton';
+import { Breadcrumbs } from '../components/Breadcrumbs/Breadcrumbs';
 
 import { fetchCardRedux } from '../redux/card/asyncActions';
 import { selectCard } from '../redux/card/slice';
+import { useAppDispatch } from '../redux/store';
 
-export const Home = () => {
-  const dispatch = useDispatch();
+export const Home: React.FC = () => {
+  const dispatch = useAppDispatch();
   const { categoryId, sort, currentPage } = useSelector(selectFilter);
   const { items, status } = useSelector(selectCard);
 
-  const onChangeCategory = (id) => {
+  const onChangeCategory = (id: string) => {
     dispatch(setCategoryId(id));
   };
-  const onChangePage = (number) => {
-    dispatch(setCurrentPage(number));
+  const onChangePage = (page: number) => {
+    dispatch(setCurrentPage(page));
   };
   const getCards = async () => {
     const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
     const sortBy = sort.sortProperty.replace('-', '');
 
-    dispatch(fetchCardRedux({ sortBy, order, categoryId, currentPage }));
+    dispatch(fetchCardRedux({ sortBy, order, categoryId, currentPage: String(currentPage) }));
   };
   React.useEffect(() => {
     getCards();
@@ -35,15 +37,23 @@ export const Home = () => {
   return (
     <>
       <div className="container">
+        <Breadcrumbs
+          links={[
+            {
+              title: 'Каталог',
+              link: '/',
+            },
+          ]}
+        />
         <NameAndSort />
         <Categories value={categoryId} onChangeCategory={onChangeCategory} />
         <section className="parametersandcards">
-          <Filters arrBrand={items} />
+          <Filters items={items} />
           <div className="rightside">
             <div className="card">
               {status === 'loading'
                 ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-                : items.map((obj) => <CardBlock {...obj} key={obj.id} />)}
+                : items.map((obj: any) => <CardBlock {...obj} key={obj.id} />)}
             </div>
             <Pagination currentPage={currentPage} onChangePage={onChangePage} />
             <p className="lorem">

@@ -2,27 +2,37 @@ import React from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { selectSort, setSort } from '../redux/filter/slice';
+import { Sort, SortPropertyEnum } from '../redux/filter/types';
+
+type SortItem = {
+  name: string;
+  sortProperty: SortPropertyEnum;
+};
+type PopupClick = MouseEvent & {
+  path: Node[];
+};
+
+export const sortList: SortItem[] = [
+  { name: 'Название ▼', sortProperty: SortPropertyEnum.TITLE_DESC },
+  { name: 'Название ▲', sortProperty: SortPropertyEnum.TITLE_ASC },
+  { name: 'Цена ▼', sortProperty: SortPropertyEnum.PRICE_DESC },
+  { name: 'Цена ▲', sortProperty: SortPropertyEnum.PRICE_ASC },
+];
 
 export const NameAndSort = () => {
   const dispatch = useDispatch();
   const sort = useSelector(selectSort);
   const [open, setOpen] = React.useState(false);
-  const sortRef = React.useRef();
+  const sortRef = React.useRef<HTMLDivElement>(null);
 
-  const list = [
-    { name: 'Название ▼', sortProperty: 'title' },
-    { name: 'Название ▲', sortProperty: '-title' },
-    { name: 'Цена ▼', sortProperty: 'price' },
-    { name: 'Цена ▲', sortProperty: '-price' },
-  ];
-
-  const onClickListItem = (obj) => {
+  const onClickListItem = (obj: SortItem) => {
     dispatch(setSort(obj));
     setOpen(false);
   };
 
   React.useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const _event = event as PopupClick;
       let path = sortRef.current && event.composedPath().includes(sortRef.current);
       if (!path) {
         setOpen(false);
@@ -45,7 +55,7 @@ export const NameAndSort = () => {
         {open && (
           <div className="sort-popup">
             <ul>
-              {list.map((obj, i) => (
+              {sortList.map((obj, i) => (
                 <li
                   key={i}
                   onClick={() => onClickListItem(obj)}

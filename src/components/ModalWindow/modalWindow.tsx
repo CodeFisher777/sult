@@ -1,6 +1,6 @@
 import styles from './index.module.scss';
-import succsesLogo from './succses.svg';
-import closeLogo from './close.svg';
+import succses from '../../assets/images/succses.svg';
+import close from '../../assets/images/close.svg';
 
 type ModalWindowPropsType = {
   active: boolean;
@@ -15,11 +15,11 @@ export const ModalWindow: React.FC<ModalWindowPropsType> = ({ active, setActive 
         <div className={styles.box} onClick={(e) => e.stopPropagation()}>
           <div className={styles.closeBTN}>
             <button onClick={() => setActive(false)}>
-              <img src={closeLogo} alt="closeLogo" />
+              <img src={close} alt="close" />
             </button>
           </div>
           <div className={styles.logo}>
-            <img src={succsesLogo} alt="succsesLogo" />
+            <img src={succses} alt="succses" />
           </div>
           <div className={styles.title}>Спасибо за заказ</div>
           <div className={styles.description}>Наш менеджер свяжется с вами в ближайшее время</div>

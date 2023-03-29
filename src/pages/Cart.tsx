@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ModalWindow } from '../components/ModalWindow/modalWindow';
-import { CartItem } from '../components/CartItem/CartItem';
+import { CartItemBlock } from '../components/CartItem/CartItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearItems } from '../redux/cart/slice';
+import { clearItems, selectCart } from '../redux/cart/slice';
+import { Breadcrumbs } from '../components/Breadcrumbs/Breadcrumbs';
 
-export const Cart = () => {
+export const Cart: React.FC = () => {
   const dispatch = useDispatch();
 
-  const { items, totalPrice } = useSelector((state) => state.cart);
+  const { items, totalPrice } = useSelector(selectCart);
 
   const [modalActive, setModalActive] = React.useState(false);
   const onTakeOrder = () => {
@@ -22,10 +23,18 @@ export const Cart = () => {
   return (
     <>
       <div className="container">
+        <Breadcrumbs
+          links={[
+            {
+              title: 'Корзина',
+              link: '/cart',
+            },
+          ]}
+        />
         <div className="cart">
           <p className="cart-head">Корзина</p>
-          {items.map((item) => (
-            <CartItem key={item.id} {...item} />
+          {items.map((item: any) => (
+            <CartItemBlock key={item.id} {...item} />
           ))}
 
           <div className="cart-line"></div>

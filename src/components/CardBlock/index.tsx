@@ -1,18 +1,19 @@
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../../redux/cart/slice';
-import { selectCartItemById } from '../../redux/card/slice';
+import { selectCartItemById } from '../../redux/cart/slice';
+import { CartItem } from '../../redux/cart/types';
 
 type CardBlockProps = {
   title: string;
   price: number;
   imageUrl: string;
   type: number;
-  size: string;
+  size: number;
   code: number;
   brand: string;
   manufacture: string;
-  id: number;
+  id: string;
   description: string;
 };
 
@@ -28,18 +29,18 @@ export const CardBlock: React.FC<CardBlockProps> = ({
   description,
 }) => {
   const dispatch = useDispatch();
-  //@ts-ignore
   const cartItem = useSelector(selectCartItemById(id));
-  //@ts-ignore
   const addedCount = cartItem ? cartItem.count : 0;
   const onClickAdd = () => {
-    const item = {
+    const item: CartItem = {
       id,
       title,
       price,
       imageUrl,
       size,
       description,
+      count: 0,
+      itemCount: 0,
     };
     dispatch(addItem(item));
   };
