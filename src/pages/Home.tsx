@@ -18,9 +18,9 @@ export const Home: React.FC = () => {
   const { categoryId, sort, currentPage } = useSelector(selectFilter);
   const { items, status } = useSelector(selectCard);
 
-  const onChangeCategory = (id: string) => {
+  const onChangeCategory = React.useCallback((id: string) => {
     dispatch(setCategoryId(id));
-  };
+  }, []);
   const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page));
   };
@@ -45,7 +45,7 @@ export const Home: React.FC = () => {
             },
           ]}
         />
-        <NameAndSort />
+        <NameAndSort value={sort} />
         <Categories value={categoryId} onChangeCategory={onChangeCategory} />
         <section className="parametersandcards">
           <Filters items={items} />

@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectCategory, setCategoryId } from '../redux/filter/slice';
 import { categories } from './Categories';
 
-export function CategoriesVertical() {
+export const CategoriesVertical: React.FC = () => {
   const dispatch = useDispatch();
   const categoryId = useSelector(selectCategory);
 
-  const onChangeCategory = (id: string) => {
+  const onChangeCategory = React.useCallback((id: string) => {
     dispatch(setCategoryId(id));
-  };
+  }, []);
   return (
     <div className="categoriesvertical">
       <ul>
@@ -25,4 +25,4 @@ export function CategoriesVertical() {
       </ul>
     </div>
   );
-}
+};

@@ -32,7 +32,9 @@ export const FullcardItem: React.FC<FullcardItemProps> = ({ card }) => {
   };
 
   const onMinus = () => {
-    setItemCount(itemCount - 1);
+    if (itemCount > 1) {
+      setItemCount(itemCount - 1);
+    }
   };
 
   const cardPlusCount = { ...card, itemCount, count: 0, description: 'description' };
@@ -67,7 +69,11 @@ export const FullcardItem: React.FC<FullcardItemProps> = ({ card }) => {
               <p>{itemCount}</p>
               <button onClick={onPlus}>+</button>
             </div>
-            <button onClick={onClickPlus} className={styles.root__text__pricecart__tocart}>
+            <button
+              disabled={itemCount === 0}
+              onClick={onClickPlus}
+              className={styles.root__text__pricecart__tocart}
+            >
               В корзину <img src="./images/cartitem.svg" alt="" />
             </button>
           </div>

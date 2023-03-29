@@ -1,6 +1,6 @@
 import React from 'react';
 
-type CategoriesProps = {
+export type CategoriesProps = {
   value: string;
   onChangeCategory: (parametr: string) => void;
 };
@@ -19,7 +19,7 @@ export const categories = [
   'Бумажная продукция',
 ];
 
-export const Categories: React.FC<CategoriesProps> = ({ value, onChangeCategory }) => {
+export const Categories: React.FC<CategoriesProps> = React.memo(({ value, onChangeCategory }) => {
   return (
     <section className="categories">
       <ul>
@@ -35,4 +35,4 @@ export const Categories: React.FC<CategoriesProps> = ({ value, onChangeCategory 
       </ul>
     </section>
   );
-};
+});

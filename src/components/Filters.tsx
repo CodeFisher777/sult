@@ -1,9 +1,10 @@
 import React, { ChangeEvent } from 'react';
+import { Card } from '../redux/card/types';
 
 import { CategoriesVertical } from './CategoriesVertical';
 
 type FiltersProps = {
-  items: any;
+  items: Card[];
 };
 
 export const Filters: React.FC<FiltersProps> = ({ items }) => {
@@ -12,18 +13,16 @@ export const Filters: React.FC<FiltersProps> = ({ items }) => {
   const [maxPrice, setMaxPrice] = React.useState('');
   const [checkBrand, setCheckBrand] = React.useState('');
   //@ts-ignore
-  const uniqArrBrand = [...new Set(items.map((items) => items.brand))];
+  const uniqArrBrand: [] = [...new Set(items.map((items) => items.brand))];
 
   const [filteredBrand, setFilteredBrand] = React.useState([]);
   const [filteredPrice, setFilteredPrice] = React.useState([]);
-  //@ts-ignore
+
   const [openBrand, setOpenBrand] = React.useState(false);
   let ulClasses = ['filters-brand-checkboxes'];
   if (openBrand) {
-    //@ts-ignore
     ulClasses = ['filters-brand-checkboxes active'];
   } else {
-    //@ts-ignore
     ulClasses = ['filters-brand-checkboxes'];
   }
   const onChangeOpen = (event: React.MouseEvent<HTMLLabelElement>) => {
@@ -34,17 +33,19 @@ export const Filters: React.FC<FiltersProps> = ({ items }) => {
     }
   };
   const onShowFiltered = (event: React.MouseEvent<HTMLButtonElement>) => {
-    //@ts-ignore
     setFilteredPrice(
       //@ts-ignore
-      items.filter((item) => item.price >= Number(minPrice) && item.price <= Number(maxPrice)),
+      items.filter(
+        (item: Card) => item.price >= Number(minPrice) && item.price <= Number(maxPrice),
+      ),
     );
     console.log(filteredPrice);
   };
 
   const onSearch = (event: React.MouseEvent<HTMLButtonElement>) => {
-    //@ts-ignore
-    setFilteredBrand(uniqArr.filter((item) => item.toLowerCase() == searchValue.toLowerCase()));
+    setFilteredBrand(
+      uniqArrBrand.filter((item: string) => item.toLowerCase() == searchValue.toLowerCase()),
+    );
   };
   const arrRender = filteredBrand.length !== 0 ? filteredBrand : uniqArrBrand;
 
@@ -83,7 +84,7 @@ export const Filters: React.FC<FiltersProps> = ({ items }) => {
           //@ts-ignore
           className={ulClasses}
         >
-          {arrRender.map((items: any, i) => (
+          {arrRender.map((items: string, i) => (
             <li key={i}>
               <input onChange={(event) => setCheckBrand(event.target.value)} type="checkbox" />
               <p className="filters-brand-checkboxes-name">{items}</p>

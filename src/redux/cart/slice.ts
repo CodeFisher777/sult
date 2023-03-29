@@ -4,10 +4,7 @@ import { getCartFromLS } from '../../utils/getCartFromLS';
 import { RootState } from '../store';
 import { CartItem, CartSliceState } from './types';
 
-const initialState: CartSliceState = {
-  items: [],
-  totalPrice: 0,
-};
+const initialState: CartSliceState = getCartFromLS();
 
 const cartSlice = createSlice({
   name: 'cart',

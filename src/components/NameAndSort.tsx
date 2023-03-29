@@ -11,6 +11,9 @@ type SortItem = {
 type PopupClick = MouseEvent & {
   path: Node[];
 };
+type SortPopupProps = {
+  value: Sort;
+};
 
 export const sortList: SortItem[] = [
   { name: 'Название ▼', sortProperty: SortPropertyEnum.TITLE_DESC },
@@ -19,9 +22,9 @@ export const sortList: SortItem[] = [
   { name: 'Цена ▲', sortProperty: SortPropertyEnum.PRICE_ASC },
 ];
 
-export const NameAndSort = () => {
+export const NameAndSort: React.FC<SortPopupProps> = React.memo(({ value }) => {
   const dispatch = useDispatch();
-  const sort = useSelector(selectSort);
+
   const [open, setOpen] = React.useState(false);
   const sortRef = React.useRef<HTMLDivElement>(null);
 
@@ -50,7 +53,7 @@ export const NameAndSort = () => {
       <div ref={sortRef} className="sort">
         <div className="sort-label">
           <p>Сортировка:</p>
-          <span onClick={() => setOpen(!open)}>{sort.name}</span>
+          <span onClick={() => setOpen(!open)}>{value.name}</span>
         </div>
         {open && (
           <div className="sort-popup">
@@ -59,7 +62,7 @@ export const NameAndSort = () => {
                 <li
                   key={i}
                   onClick={() => onClickListItem(obj)}
-                  className={sort.sortProperty === obj.sortProperty ? 'active' : ''}
+                  className={value.sortProperty === obj.sortProperty ? 'active' : ''}
                 >
                   {obj.name}
                 </li>
@@ -70,4 +73,4 @@ export const NameAndSort = () => {
       </div>
     </section>
   );
-};
+});
