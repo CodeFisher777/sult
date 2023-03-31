@@ -28,3 +28,7 @@ export type SearchCardParams = {
   categoryId: string;
   currentPage: string;
 };
+export type AdminCardParams = {
+  categoryId: string;
+  currentPageStr: string;
+};

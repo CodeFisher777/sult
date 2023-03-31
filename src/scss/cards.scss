@@ -70,5 +70,18 @@
         color: #ffffff;
       }
     }
+    &-patchanddel {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      button {
+        width: 120px;
+        height: 30px;
+        background: #ffc85e;
+        border-radius: 80px;
+        color: #ffffff;
+      }
+    }
   }
 }

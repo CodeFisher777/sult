@@ -7,6 +7,8 @@ import { FullCard } from './pages/FullCard';
 
 import { Routes, Route } from 'react-router-dom';
 import '../src/scss/app.scss';
+import { Admin } from './pages/Admin';
+import { AddItem } from './pages/AddItem';
 
 function App() {
   const location = useLocation();
@@ -18,7 +20,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/card/:id" element={<FullCard />} />
-          <Route path="/Admin" element={<h1>Admin</h1>} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/additem" element={<AddItem />} />
+          <Route path="/card/:id/edit" element={<AddItem />} />
         </Routes>
 
         {

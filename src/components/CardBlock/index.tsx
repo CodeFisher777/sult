@@ -1,8 +1,11 @@
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { Link, Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { addItem } from '../../redux/cart/slice';
 import { selectCartItemById } from '../../redux/cart/slice';
 import { CartItem } from '../../redux/cart/types';
+import { fetchRemoveCardRedux } from '../../redux/card/asyncActions';
+import { useAppDispatch } from '../../redux/store';
 
 type CardBlockProps = {
   title: string;
@@ -28,9 +31,11 @@ export const CardBlock: React.FC<CardBlockProps> = ({
   manufacture,
   description,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const cartItem = useSelector(selectCartItemById(id));
   const addedCount = cartItem ? cartItem.count : 0;
+  const location = useLocation();
+
   const onClickAdd = () => {
     const item: CartItem = {
       id,
@@ -43,6 +48,10 @@ export const CardBlock: React.FC<CardBlockProps> = ({
       itemCount: 0,
     };
     dispatch(addItem(item));
+  };
+  const onClickRemove = () => {
+    if (window.confirm('Вы действительно хотите удалить товар?'))
+      dispatch(fetchRemoveCardRedux(id));
   };
   return (
     <div className="card-item">
@@ -80,6 +89,14 @@ export const CardBlock: React.FC<CardBlockProps> = ({
           {addedCount > 0 && <i>{addedCount}</i>}
         </button>
       </div>
+      {location.pathname === '/admin' && (
+        <div className="card-item-patchanddel">
+          <Link to={`/card/${id}/edit`}>
+            <button>редактировать</button>
+          </Link>
+          <button onClick={onClickRemove}>удалить</button>
+        </div>
+      )}
     </div>
   );
 };
