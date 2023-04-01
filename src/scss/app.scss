@@ -29,32 +29,20 @@ body {
 }
 
 .container {
-  max-width: 1400px;
-  padding-left: 15px;
-  padding-right: 15px;
+  max-width: 1370px;
+
   margin-left: auto;
   margin-right: auto;
+  @media (max-width: 720px) {
+    max-width: 720px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
-// .breadcrumbs {
-//   padding-top: 45px;
-//   padding-bottom: 50px;
-//   &-line {
-//     height: 16px;
-//     opacity: 0.3;
-//     border: 1px dashed #3f4e65;
-//   }
-//   ul {
-//     display: flex;
-//     justify-content: left;
-//     align-items: center;
-//     li {
-//       padding-right: 10px;
-//     }
-//   }
-// }
-
-.nameandsort {
+.hometop {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -62,8 +50,47 @@ body {
     font-weight: 500;
     font-size: 40px;
     text-transform: uppercase;
+    @media (max-width: 720px) {
+      font-size: 20px;
+    }
   }
 }
+.namem {
+  &-back {
+    width: 80px;
+    padding-top: 20px;
+    padding-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 32px;
+      height: 32px;
+      line-height: 32px;
+      background: #ffca65;
+      opacity: 0.3;
+      border-radius: 100px;
+    }
+    p {
+      font-weight: 600;
+      font-size: 10px;
+      color: #3f4e65;
+      text-transform: uppercase;
+    }
+  }
+  h1 {
+    font-weight: 500;
+    font-size: 40px;
+    text-transform: uppercase;
+    @media (max-width: 720px) {
+      font-size: 20px;
+    }
+  }
+}
+
 .sort {
   position: relative;
   &-label {
@@ -121,6 +148,9 @@ body {
       }
     }
   }
+  @media (max-width: 720px) {
+    padding-bottom: 37px;
+  }
 }
 .parametersandcards {
   display: flex;
@@ -130,6 +160,10 @@ body {
   width: 910px;
   line-height: 21px;
   padding-bottom: 100px;
+  @media (max-width: 720px) {
+    width: auto;
+    padding-bottom: 50px;
+  }
 }
 
 .additem {
@@ -139,4 +173,25 @@ body {
   background: #ffc85e;
   border-radius: 80px;
   color: #ffffff;
+}
+.buttonm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  background: #ffca65;
+
+  opacity: 0.5;
+  border-radius: 100px;
+
+  img {
+    opacity: 1;
+  }
+}
+.filterm {
+  display: flex;
+  justify-content: flex-start;
+  padding-top: 19px;
 }

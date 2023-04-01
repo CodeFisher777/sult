@@ -9,13 +9,23 @@
   justify-content: space-between;
   align-items: center;
   padding: 50px 0;
+  @media (max-width: 720px) {
+    flex-direction: column;
+  }
   &__imgmain {
     width: 281px;
     height: 191px;
     object-fit: contain;
+    @media (max-width: 720px) {
+      width: 290px;
+      height: 197px;
+    }
   }
   &__text {
     width: 480px;
+    @media (max-width: 720px) {
+      width: 290px;
+    }
     &__v {
       display: flex;
       justify-content: flex-start;
@@ -68,11 +78,23 @@
     padding: 44px 0;
     font-weight: 700;
     font-size: 30px;
+    @media (max-width: 720px) {
+      font-size: 16px;
+    }
   }
   &__del {
     width: 59px;
     height: 59px;
     background: #ffc85e;
     border-radius: 79px;
+  }
+  &__block {
+    width: 459px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @media (max-width: 720px) {
+      width: 290px;
+    }
   }
 }

@@ -26,6 +26,7 @@ export const CardBlock: React.FC<CardBlockProps> = ({
   imageUrl,
   id,
   size,
+  type,
   code,
   brand,
   manufacture,
@@ -62,8 +63,17 @@ export const CardBlock: React.FC<CardBlockProps> = ({
         </div>
       </Link>
       <div className="card-item-v">
-        <img src="./images/littlebootle.svg" alt="" />
-        <p>{size} мл</p>
+        {type ? (
+          <>
+            <img src="./images/box.png" alt="" />
+            <p>{size} гр.</p>
+          </>
+        ) : (
+          <>
+            <img src="./images/littlebootle.svg" alt="" />
+            <p>{size} мл</p>
+          </>
+        )}
       </div>
       <div className="card-item-parameters">
         <Link to={`/card/${id}`}>

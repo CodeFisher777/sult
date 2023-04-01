@@ -16,6 +16,13 @@
     align-items: center;
     padding-top: 50px;
     padding-bottom: 100px;
+    @media (max-width: 720px) {
+      padding-top: 25px;
+      padding-bottom: 50px;
+    }
+    @media (max-width: 720px) {
+      flex-direction: column-reverse;
+    }
 
     &-order {
       width: 192px;
@@ -30,6 +37,9 @@
     p {
       font-weight: 700;
       font-size: 30px;
+      @media (max-width: 720px) {
+        padding-bottom: 25px;
+      }
     }
   }
 }

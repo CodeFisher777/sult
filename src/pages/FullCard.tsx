@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { FullcardItem } from '../components/FullCardItem/FullcardItem';
 
 import axios from 'axios';
+import { Back } from '../components/back';
 
 export const FullCard: React.FC = () => {
   const [card, setCard] = React.useState<{
@@ -33,6 +34,7 @@ export const FullCard: React.FC = () => {
   }
   return (
     <div className="container">
+      <Back />
       <FullcardItem card={card} />
     </div>
   );

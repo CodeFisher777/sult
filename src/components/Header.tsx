@@ -9,12 +9,17 @@ import search from '../assets/images/search.svg';
 import arrowDown from '../assets/images/arrow-down.svg';
 import cart from '../assets/images/cart.svg';
 import photo from '../assets/images/photo.png';
+import burger from '../assets/images/burger.svg';
+import searchm from '../assets/images/searchm.svg';
+import catalogm from '../assets/images/catalogm.svg';
+import headerPhone from '../assets/images/headerphone.svg';
+import { useMediaQuery } from 'react-responsive';
 
 export function Header() {
   const { items, totalPrice } = useSelector(selectCart);
   const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);
   const isMounted = React.useRef(false);
-
+  const isMobile = useMediaQuery({ query: '(max-width:720px)' });
   React.useEffect(() => {
     if (isMounted.current) {
       const json = JSON.stringify(items);
@@ -23,7 +28,69 @@ export function Header() {
     isMounted.current = true;
   }, [items]);
 
-  return (
+  return isMobile ? (
+    <header className="headerm">
+      <div className="container">
+        <div className="headerm-topm">
+          <button>
+            <img src={burger} alt="" />
+          </button>
+          <Link to="/">
+            <img src={logo} alt="" />
+          </Link>
+          <div className="header-bottom-right-cart">
+            <Link to="/cart" className="header-bottom-right-cart-image">
+              <img src={cart} alt="" />
+              <div className="header-bottom-right-cart-count">
+                <span>{totalCount}</span>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </div>
+      <div className="header-line"></div>
+      <div className="container">
+        <div className="headerm-bottom">
+          <div className="headerm-bottom-left">
+            <img src={catalogm} alt="" />
+            <p>Каталог</p>
+          </div>
+          <div className="header-stick"></div>
+          <div className="headerm-bottom-right">
+            <img src={searchm} alt="" />
+            <p>Поиск</p>
+          </div>
+        </div>
+      </div>
+      <div className="header-line"></div>
+      <div className="container">
+        <div className="header-top-info">
+          <div className="header-top-info-address">
+            <img src={gps} alt="location" />
+            <div className="header-top-info-address-text">
+              <p className="header-top-info-address-text-head">г. Кокчетав, ул. Ж. Ташенова 129Б</p>
+              <p className="header-top-info-email-text-parag">(Рынок Восточный)</p>
+            </div>
+          </div>
+
+          <div className="header-top-info-email">
+            <img src={email} alt="email" />
+            <div className="header-top-info-email-text">
+              <p className="header-top-info-email-text-head">opt.sultan@mail.ru</p>
+              <p className="header-top-info-email-text-parag">На связи в любое время</p>
+            </div>
+          </div>
+          <div className="header-top-info-phone">
+            <img src={headerPhone} alt="email" />
+            <div className="header-top-info-email-text">
+              <p className="header-top-info-email-text-head">Отдел продаж</p>
+              <p className="header-top-info-email-text-parag">+7 (777) 490-00-91</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  ) : (
     <header className="header">
       <div className="container">
         <div className="header-top">

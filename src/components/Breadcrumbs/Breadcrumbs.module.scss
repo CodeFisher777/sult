@@ -1,5 +1,8 @@
 .root {
   padding: 45px 0;
+  @media (max-width: 720px) {
+    display: none;
+  }
   span {
     font-weight: 300;
     line-height: 120%;

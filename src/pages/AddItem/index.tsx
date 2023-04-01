@@ -5,22 +5,9 @@ import axios from 'axios';
 import { Navigate, useNavigate, useParams, Link } from 'react-router-dom';
 import 'easymde/dist/easymde.min.css';
 import styles from './AddItem.module.scss';
+import { categories } from '../../components/Categories';
 
 export const AddItem = () => {
-  const categories = [
-    'Уход за телом',
-    'Уход за руками',
-    'Уход за ногами',
-    'Уход за лицом',
-    'Уход за волосами',
-    'Средство для загара',
-    'Средство для бритья',
-    'Подарочные наборы',
-    'Гигиеническая продукция',
-    'Гигиена полости рта',
-    'Бумажная продукция',
-  ];
-
   const navigate = useNavigate();
   const { id } = useParams();
   const [isLoading, setIsLoading] = React.useState(false);

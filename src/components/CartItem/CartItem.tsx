@@ -3,6 +3,7 @@ import styles from './CartItem.module.scss';
 import { useDispatch } from 'react-redux';
 import { addItem, minusItem, removeItem } from '../../redux/cart/slice';
 import { CartItem } from '../../redux/cart/types';
+import { useMediaQuery } from 'react-responsive';
 
 type CartItemProps = {
   id: string;
@@ -24,7 +25,7 @@ export const CartItemBlock: React.FC<CartItemProps> = ({
   size,
 }) => {
   const dispatch = useDispatch();
-
+  const isMobile = useMediaQuery({ query: '(max-width:720px)' });
   const onClickPlus = () => {
     dispatch(
       addItem({
@@ -53,20 +54,22 @@ export const CartItemBlock: React.FC<CartItemProps> = ({
           <p className={styles.root__text__name}>{title}</p>
           <p className={styles.root__text__desciption}>{description}</p>
         </div>
-        <span className={styles.root__vertline}></span>
-        <div className={styles.root__buttons}>
-          <button disabled={count === 1} onClick={onClickMinus}>
-            -
+        {!isMobile && <span className={styles.root__vertline}></span>}
+        <div className={styles.root__block}>
+          <div className={styles.root__buttons}>
+            <button disabled={count === 1} onClick={onClickMinus}>
+              -
+            </button>
+            <p>{count}</p>
+            <button onClick={onClickPlus}>+</button>
+          </div>
+          <span className={styles.root__vertline}></span>
+          <p className={styles.root__price}>{price * count} ₸</p>
+          <span className={styles.root__vertline}></span>
+          <button onClick={onClickRemove} className={styles.root__del}>
+            <img src="/images/trash.svg" alt="" />
           </button>
-          <p>{count}</p>
-          <button onClick={onClickPlus}>+</button>
         </div>
-        <span className={styles.root__vertline}></span>
-        <p className={styles.root__price}>{price * count} ₸</p>
-        <span className={styles.root__vertline}></span>
-        <button onClick={onClickRemove} className={styles.root__del}>
-          <img src="/images/trash.svg" alt="" />
-        </button>
       </div>
     </>
   );

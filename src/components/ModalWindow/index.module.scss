@@ -20,6 +20,10 @@
   height: 424px;
   background: #ffffff;
   border-radius: 8px;
+  @media (max-width: 720px) {
+    width: 290px;
+    height: 288px;
+  }
 }
 
 .closeBTN {
@@ -41,6 +45,10 @@
   justify-content: center;
   margin-top: 67px;
   margin-bottom: 24px;
+  @media (max-width: 720px) {
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
 }
 .title {
   display: flex;
@@ -52,6 +60,9 @@
   text-transform: uppercase;
   color: #111111;
   margin-bottom: 20px;
+  @media (max-width: 720px) {
+    font-size: 20px;
+  }
 }
 .description {
   display: flex;
@@ -61,4 +72,7 @@
   line-height: 120%;
   text-align: center;
   color: #3f4e65;
+  @media (max-width: 720px) {
+    font-size: 12px;
+  }
 }

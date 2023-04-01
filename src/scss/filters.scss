@@ -1,9 +1,20 @@
 .filters {
+  &-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 290px;
+  }
+
   &-firstp {
     font-weight: 500;
     font-size: 16px;
     text-transform: uppercase;
     padding-bottom: 10px;
+    @media (max-width: 720px) {
+      padding-bottom: 0px;
+      padding-right: 43px;
+    }
   }
   &-secondp {
     padding-bottom: 16px;
@@ -45,6 +56,9 @@
         border-radius: 36px;
         padding-left: 20px;
         font-size: 12px;
+        @media (max-width: 720px) {
+          width: 290px;
+        }
       }
       &-circle {
         width: 39px;
@@ -53,6 +67,9 @@
         border-radius: 1000px;
         position: absolute;
         left: 185px;
+        @media (max-width: 720px) {
+          left: 240px;
+        }
       }
     }
     &-checkboxes {
@@ -87,12 +104,19 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      @media (max-width: 720px) {
+        width: 290px;
+      }
+
       button:first-child {
         width: 169px;
         height: 59px;
         background: #ffc85e;
         border-radius: 79px;
         color: white;
+        @media (max-width: 720px) {
+          width: 216px;
+        }
       }
       button:last-child {
         width: 59px;

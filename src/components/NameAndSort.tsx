@@ -1,6 +1,8 @@
 import React from 'react';
+import arrowLeft from './../assets/images/mobilearrowleft.svg';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { useMediaQuery } from 'react-responsive';
 import { selectSort, setSort } from '../redux/filter/slice';
 import { Sort, SortPropertyEnum } from '../redux/filter/types';
 
@@ -27,7 +29,7 @@ export const NameAndSort: React.FC<SortPopupProps> = React.memo(({ value }) => {
 
   const [open, setOpen] = React.useState(false);
   const sortRef = React.useRef<HTMLDivElement>(null);
-
+  const isMobile = useMediaQuery({ query: '(max-width:720px)' });
   const onClickListItem = (obj: SortItem) => {
     dispatch(setSort(obj));
     setOpen(false);
@@ -49,7 +51,6 @@ export const NameAndSort: React.FC<SortPopupProps> = React.memo(({ value }) => {
   }, []);
   return (
     <section className="nameandsort">
-      <h1>Косметика и гигиена</h1>
       <div ref={sortRef} className="sort">
         <div className="sort-label">
           <p>Сортировка:</p>

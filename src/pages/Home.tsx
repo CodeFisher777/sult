@@ -12,12 +12,14 @@ import { Breadcrumbs } from '../components/Breadcrumbs/Breadcrumbs';
 import { fetchCardRedux } from '../redux/card/asyncActions';
 import { selectCard } from '../redux/card/slice';
 import { useAppDispatch } from '../redux/store';
+import { useMediaQuery } from 'react-responsive';
 
+import { Back } from '../components/back';
 export const Home: React.FC = () => {
   const dispatch = useAppDispatch();
   const { categoryId, sort, currentPage } = useSelector(selectFilter);
   const { items, status } = useSelector(selectCard);
-
+  const isMobile = useMediaQuery({ query: '(max-width:720px)' });
   const onChangeCategory = React.useCallback((id: string) => {
     dispatch(setCategoryId(id));
   }, []);
@@ -45,11 +47,18 @@ export const Home: React.FC = () => {
             },
           ]}
         />
-        <NameAndSort value={sort} />
-        <Categories value={categoryId} onChangeCategory={onChangeCategory} />
-        <section className="parametersandcards">
-          <Filters items={items} />
-          <div className="rightside">
+
+        {isMobile ? (
+          <div className="container">
+            <div className="namem">
+              {' '}
+              <Back />
+              <h1>Косметика и гигиена</h1>
+            </div>
+            <div className="filterm">
+              <Filters items={items} />
+            </div>
+            <NameAndSort value={sort} />
             <div className="card">
               {status === 'loading'
                 ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
@@ -62,7 +71,32 @@ export const Home: React.FC = () => {
               excepturi quis doloribus quasi! Et repudiandae unde nesciunt natus.
             </p>
           </div>
-        </section>
+        ) : (
+          <>
+            <div className="hometop">
+              <h1>Косметика и гигиена</h1>
+              <NameAndSort value={sort} />
+            </div>
+
+            <Categories value={categoryId} onChangeCategory={onChangeCategory} />
+            <section className="parametersandcards">
+              <Filters items={items} />
+              <div className="rightside">
+                <div className="card">
+                  {status === 'loading'
+                    ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
+                    : items.map((obj: any) => <CardBlock {...obj} key={obj.id} />)}
+                </div>
+                <Pagination currentPage={currentPage} onChangePage={onChangePage} />
+                <p className="lorem">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam pariatur
+                  molestiae blanditiis hic tempora dolor, modi architecto laborum nesciunt delectus,
+                  ipsa excepturi quis doloribus quasi! Et repudiandae unde nesciunt natus.
+                </p>
+              </div>
+            </section>
+          </>
+        )}
       </div>
     </>
   );

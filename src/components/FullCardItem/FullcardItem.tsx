@@ -6,7 +6,9 @@ import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs';
 
 import { addOneItem } from '../../redux/cart/slice';
 import { selectCartItemById } from '../../redux/cart/slice';
-
+import share from '../../assets/images/share.png';
+import download from '../../assets/images/downloadblack.svg';
+import { useMediaQuery } from 'react-responsive';
 type FullcardItemProps = {
   card: {
     id: string;
@@ -30,7 +32,7 @@ export const FullcardItem: React.FC<FullcardItemProps> = ({ card }) => {
   const onPlus = () => {
     setItemCount(itemCount + 1);
   };
-
+  const isMobile = useMediaQuery({ query: '(max-width:720px)' });
   const onMinus = () => {
     if (itemCount > 1) {
       setItemCount(itemCount - 1);
@@ -60,32 +62,44 @@ export const FullcardItem: React.FC<FullcardItemProps> = ({ card }) => {
           <div className={styles.root__text__v}>
             <img src="./images/littlebootle.svg" alt="" /> <p>{card.size} г</p>
           </div>
-          <div className={styles.root__text__pricecart}>
-            <p>{card.price} ₸</p>
-            <div className={styles.root__text__pricecart__buttons}>
-              <button disabled={itemCount === 0} onClick={onMinus}>
-                -
-              </button>
-              <p>{itemCount}</p>
-              <button onClick={onPlus}>+</button>
+
+          <div className={styles.root__pricecontainer}>
+            <div className={styles.root__text__pricecart}>
+              <p>{card.price} ₸</p>
+              <div className={styles.root__text__pricecart__buttons}>
+                <button disabled={itemCount === 0} onClick={onMinus}>
+                  -
+                </button>
+                <p>{itemCount}</p>
+                <button onClick={onPlus}>+</button>
+              </div>
             </div>
-            <button
-              disabled={itemCount === 0}
-              onClick={onClickPlus}
-              className={styles.root__text__pricecart__tocart}
-            >
-              В корзину <img src="./images/cartitem.svg" alt="" />
-            </button>
+            <div className={styles.root__buttonscontainer}>
+              <button
+                disabled={itemCount === 0}
+                onClick={onClickPlus}
+                className={styles.root__text__pricecart__tocart}
+              >
+                В корзину <img src="./images/cartitem.svg" alt="" />
+              </button>
+              {isMobile && (
+                <button disabled>
+                  <img src={share} alt="" />
+                </button>
+              )}
+            </div>
           </div>
           <div className={styles.root__text__linkblock}>
-            <button disabled>
-              <img src="./images/share.png" alt="" />
-            </button>
+            {!isMobile && (
+              <button disabled>
+                <img src={share} alt="" />
+              </button>
+            )}
             <button>
               При покупке от <b>10 000 ₸</b> бесплатная доставка по Кокчетаву и области
             </button>
             <button disabled>
-              Прайс-лист <img src="./images/downloadblack.svg" alt="" />
+              Прайс-лист <img src={download} alt="" />
             </button>
           </div>
           <div className={styles.root__text__parameters}>
