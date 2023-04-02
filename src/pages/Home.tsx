@@ -15,11 +15,14 @@ import { useAppDispatch } from '../redux/store';
 import { useMediaQuery } from 'react-responsive';
 
 import { Back } from '../components/back';
+import { Card } from '../redux/card/types';
 export const Home: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { categoryId, sort, currentPage } = useSelector(selectFilter);
+
+  const { categoryId, sort, currentPage, minPrice, maxPrice } = useSelector(selectFilter);
   const { items, status } = useSelector(selectCard);
-  const isMobile = useMediaQuery({ query: '(max-width:720px)' });
+  const [filteredPrice, setFilteredPrice] = React.useState(items);
+  const isMobile = useMediaQuery({ query: '(max-width:950px)' });
   const onChangeCategory = React.useCallback((id: string) => {
     dispatch(setCategoryId(id));
   }, []);
@@ -36,6 +39,14 @@ export const Home: React.FC = () => {
     getCards();
   }, [categoryId, sort.sortProperty, currentPage]);
 
+  React.useEffect(() => {
+    const newDataSet = items.filter(
+      (item: Card) => item.price >= minPrice && item.price <= maxPrice,
+    );
+
+    setFilteredPrice(newDataSet);
+  }, [minPrice, maxPrice]);
+  console.log(filteredPrice, minPrice, maxPrice);
   return (
     <>
       <div className="container">
@@ -62,6 +73,8 @@ export const Home: React.FC = () => {
             <div className="card">
               {status === 'loading'
                 ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
+                : minPrice || maxPrice
+                ? filteredPrice.map((obj: any) => <CardBlock {...obj} key={obj.id} />)
                 : items.map((obj: any) => <CardBlock {...obj} key={obj.id} />)}
             </div>
             <Pagination currentPage={currentPage} onChangePage={onChangePage} />
@@ -85,6 +98,8 @@ export const Home: React.FC = () => {
                 <div className="card">
                   {status === 'loading'
                     ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
+                    : minPrice || maxPrice
+                    ? filteredPrice.map((obj: any) => <CardBlock {...obj} key={obj.id} />)
                     : items.map((obj: any) => <CardBlock {...obj} key={obj.id} />)}
                 </div>
                 <Pagination currentPage={currentPage} onChangePage={onChangePage} />

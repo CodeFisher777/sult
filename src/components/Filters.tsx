@@ -4,23 +4,28 @@ import { Card } from '../redux/card/types';
 import arrowUp from './../assets/images/arrowupmobile.svg';
 import arrowDown from './../assets/images/arrowdownmobile.svg';
 import { CategoriesVertical } from './CategoriesVertical';
-
+import { setMinPrice, setMaxPrice } from '../redux/filter/slice';
+import { useAppDispatch } from '../redux/store';
 type FiltersProps = {
   items: Card[];
 };
 
 export const Filters: React.FC<FiltersProps> = ({ items }) => {
-  const isMobile = useMediaQuery({ query: '(max-width:720px)' });
+  const dispatch = useAppDispatch();
+  const isMobile = useMediaQuery({ query: '(max-width:950px)' });
   const [searchValue, setSearchValue] = React.useState('');
-  const [minPrice, setMinPrice] = React.useState('');
-  const [maxPrice, setMaxPrice] = React.useState('');
+  const [minPriceInput, setMinPriceInput] = React.useState('');
+  const [maxPriceInput, setMaxPriceInput] = React.useState('');
   const [checkBrand, setCheckBrand] = React.useState('');
+  const [checkedValues, setValues] = React.useState([]);
+  const [length, setLength] = React.useState([]);
+
   //@ts-ignore
   const uniqArrBrand: [] = [...new Set(items.map((items) => items.brand))];
-  const [openBurger, setOpenBurger] = React.useState(true);
+  const [open, setOpen] = React.useState(true);
   const [filteredBrand, setFilteredBrand] = React.useState([]);
-  const [filteredPrice, setFilteredPrice] = React.useState([]);
 
+  //открытие брэндов
   const [openBrand, setOpenBrand] = React.useState(false);
   let ulClasses = ['filters-brand-checkboxes'];
   if (openBrand) {
@@ -35,30 +40,43 @@ export const Filters: React.FC<FiltersProps> = ({ items }) => {
       setOpenBrand(false);
     }
   };
-  const onShowFiltered = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setFilteredPrice(
-      //@ts-ignore
-      items.filter(
-        (item: Card) => item.price >= Number(minPrice) && item.price <= Number(maxPrice),
-      ),
-    );
-    console.log(filteredPrice);
-  };
 
+  //показать отфильтрованный по тцене
+  const onShowFiltered = (event: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(setMinPrice(Number(minPriceInput)));
+    dispatch(setMaxPrice(Number(maxPriceInput)));
+  };
+  const delFilters = () => {
+    dispatch(setMinPrice(0));
+    dispatch(setMaxPrice(0));
+  };
+  const arrPrice = items.map((item) => item.price);
+
+  //поиск брэнда
   const onSearch = (event: React.MouseEvent<HTMLButtonElement>) => {
     setFilteredBrand(
       uniqArrBrand.filter((item: string) => item.toLowerCase() == searchValue.toLowerCase()),
     );
   };
   const arrRender = filteredBrand.length !== 0 ? filteredBrand : uniqArrBrand;
+  const handleChange = (event: any) => {
+    const { value, checked } = event.target;
+    if (checked) {
+      //@ts-ignore
+      setValues((pre) => [...pre, value]);
+    } else
+      setValues((pre) => {
+        return [...pre.filter((brand) => brand !== value)];
+      });
+  };
 
   return (
     <div className="filters">
       <div className="filters-head">
         <p className="filters-firstp">Подбор по параметрам</p>{' '}
         {isMobile && (
-          <button onClick={() => setOpenBurger(!openBurger)} className="buttonm">
-            {openBurger ? (
+          <button onClick={() => setOpen(!open)} className="buttonm">
+            {open ? (
               <img className="buttonm-arrowdown" src={arrowUp} alt="" />
             ) : (
               <img className="buttonm-arrowdown" src={arrowDown} alt="" />
@@ -66,22 +84,26 @@ export const Filters: React.FC<FiltersProps> = ({ items }) => {
           </button>
         )}
       </div>
-      {openBurger && (
+      {open && (
         <div className="filters-allparams">
           <p className="filters-secondp">
             Цена <b>₸</b>
           </p>
           <div className="filters-price">
             <input
-              onChange={(event: ChangeEvent<HTMLInputElement>) => setMinPrice(event.target.value)}
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                setMinPriceInput(event.target.value)
+              }
               type="text"
               placeholder="0"
             />
             <div>-</div>
             <input
-              onChange={(event: ChangeEvent<HTMLInputElement>) => setMaxPrice(event.target.value)}
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                setMaxPriceInput(event.target.value)
+              }
               type="text"
-              placeholder="10 000"
+              placeholder={String(Math.max(...arrPrice))}
             />
           </div>
           <div className="filters-brand">
@@ -102,10 +124,10 @@ export const Filters: React.FC<FiltersProps> = ({ items }) => {
               //@ts-ignore
               className={ulClasses}
             >
-              {arrRender.map((items: string, i) => (
+              {arrRender.map((brand: string, i) => (
                 <li key={i}>
-                  <input onChange={(event) => setCheckBrand(event.target.value)} type="checkbox" />
-                  <p className="filters-brand-checkboxes-name">{items}</p>
+                  <input type="checkbox" value={brand} onChange={handleChange} />
+                  <p className="filters-brand-checkboxes-name">{brand}</p>
                   <p>({items.length})</p>
                 </li>
               ))}
@@ -116,7 +138,7 @@ export const Filters: React.FC<FiltersProps> = ({ items }) => {
           </div>
           <div className="filters-brand-buttons">
             <button onClick={onShowFiltered}>Показать</button>
-            <button>
+            <button onClick={delFilters}>
               <img src="./images/trash.svg" alt="" />
             </button>
           </div>

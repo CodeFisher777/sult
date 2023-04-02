@@ -12,7 +12,7 @@ export const Cart: React.FC = () => {
   const dispatch = useDispatch();
 
   const { items, totalPrice } = useSelector(selectCart);
-  const isMobile = useMediaQuery({ query: '(max-width:720px)' });
+  const isMobile = useMediaQuery({ query: '(max-width:950px)' });
   const [modalActive, setModalActive] = React.useState(false);
   const onTakeOrder = () => {
     if (totalPrice) {
@@ -32,7 +32,11 @@ export const Cart: React.FC = () => {
           ]}
         />
         <div className="cart">
-          {isMobile && <Back />}
+          {isMobile && (
+            <Link to="/">
+              <Back />
+            </Link>
+          )}
           <p className="cart-head">Корзина</p>
           {items.map((item: any) => (
             <CartItemBlock key={item.id} {...item} />

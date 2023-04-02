@@ -25,7 +25,7 @@ export const CartItemBlock: React.FC<CartItemProps> = ({
   size,
 }) => {
   const dispatch = useDispatch();
-  const isMobile = useMediaQuery({ query: '(max-width:720px)' });
+  const isMobile = useMediaQuery({ query: '(max-width:950px)' });
   const onClickPlus = () => {
     dispatch(
       addItem({

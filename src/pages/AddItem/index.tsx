@@ -51,8 +51,8 @@ export const AddItem = () => {
       const { data } = isEditing
         ? await axios.put(`https://641e8eecad55ae01ccabd4a2.mockapi.io/items/${id}`, fields)
         : axios.post('https://641e8eecad55ae01ccabd4a2.mockapi.io/items', fields);
-      const _id = isEditing ? id : data.id;
-      navigate(`/card/${_id}`);
+      const path = isEditing ? `/card/${id}` : '/';
+      navigate(path);
     } catch (err) {
       console.warn(err);
       alert('Ошибка при  создании продукта');
@@ -87,7 +87,7 @@ export const AddItem = () => {
     setArr([...arr, selState]);
   };
   const cat = arr.join(',');
-  console.log(cat);
+
   return (
     <Paper style={{ padding: 30 }}>
       <TextField
@@ -107,23 +107,16 @@ export const AddItem = () => {
         value={imageUrl}
         onChange={(e) => setImageUrl(e.target.value)}
       />
-      <TextField
-        classes={{ root: styles.tags }}
-        variant="standard"
-        placeholder="Категории"
-        fullWidth
-        value={typeOfCare}
-        onChange={(e) => setTypeOfCare(e.target.value)}
-      />
 
       <TextField
         classes={{ root: styles.tags }}
         variant="standard"
-        placeholder="Тип"
+        placeholder="Введите 1 если параметр вес, введите 0 если параметр объём "
         fullWidth
         value={_type}
         onChange={(e) => set_Type(e.target.value)}
       />
+
       <TextField
         classes={{ root: styles.tags }}
         variant="standard"
@@ -172,6 +165,15 @@ export const AddItem = () => {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
+      {isEditing ? (
+        <>
+          <label>{typeOfCare}</label>
+          <p>Категории сверху заменятся на категории снизу</p>
+        </>
+      ) : (
+        ''
+      )}
+
       <div>{arr.join(',')}</div>
       <div className={styles.buttons}>
         <select

@@ -1,14 +1,15 @@
 .root {
   display: flex;
   justify-content: space-between;
-  @media (max-width: 720px) {
+  @media (max-width: 950px) {
     flex-direction: column;
+    align-items: center;
   }
   &__imgmain {
     width: 664px;
     height: 471px;
     object-fit: contain;
-    @media (max-width: 720px) {
+    @media (max-width: 950px) {
       width: 256px;
       height: 179px;
       padding: 15px 17px;
@@ -18,12 +19,12 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    @media (max-width: 720px) {
+    @media (max-width: 950px) {
       flex-direction: column;
     }
   }
   &__buttonscontainer {
-    @media (max-width: 720px) {
+    @media (max-width: 950px) {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -112,7 +113,7 @@
       align-items: center;
       max-width: 600px;
       padding-bottom: 35px;
-      @media (max-width: 720px) {
+      @media (max-width: 950px) {
         flex-direction: column;
       }
       button {
@@ -123,7 +124,7 @@
       }
       button:first-child {
         width: 77px;
-        @media (max-width: 720px) {
+        @media (max-width: 950px) {
           width: 290px;
         }
       }

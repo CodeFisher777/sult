@@ -9,6 +9,8 @@ const initialState: FilterSliceState = {
     name: 'Название ▼',
     sortProperty: SortPropertyEnum.TITLE_DESC,
   },
+  minPrice: 0,
+  maxPrice: 0,
 };
 
 const filterSlice = createSlice({
@@ -24,11 +26,18 @@ const filterSlice = createSlice({
     setCurrentPage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload;
     },
+    setMinPrice(state, action: PayloadAction<number>) {
+      state.minPrice = action.payload;
+    },
+    setMaxPrice(state, action: PayloadAction<number>) {
+      state.maxPrice = action.payload;
+    },
   },
 });
 export const selectFilter = (state: RootState) => state.filter;
 export const selectCategory = (state: RootState) => state.filter.categoryId;
 export const selectSort = (state: RootState) => state.filter.sort;
 
-export const { setCategoryId, setSort, setCurrentPage } = filterSlice.actions;
+export const { setCategoryId, setSort, setCurrentPage, setMaxPrice, setMinPrice } =
+  filterSlice.actions;
 export default filterSlice.reducer;

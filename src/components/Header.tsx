@@ -13,13 +13,16 @@ import burger from '../assets/images/burger.svg';
 import searchm from '../assets/images/searchm.svg';
 import catalogm from '../assets/images/catalogm.svg';
 import headerPhone from '../assets/images/headerphone.svg';
+import headerTel from '../assets/images/headertel.png';
+import close from '../assets/images/closeburger.png';
 import { useMediaQuery } from 'react-responsive';
 
 export function Header() {
   const { items, totalPrice } = useSelector(selectCart);
   const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);
   const isMounted = React.useRef(false);
-  const isMobile = useMediaQuery({ query: '(max-width:720px)' });
+  const [open, setOpen] = React.useState(false);
+  const isMobile = useMediaQuery({ query: '(max-width:950px)' });
   React.useEffect(() => {
     if (isMounted.current) {
       const json = JSON.stringify(items);
@@ -32,8 +35,12 @@ export function Header() {
     <header className="headerm">
       <div className="container">
         <div className="headerm-topm">
-          <button>
-            <img src={burger} alt="" />
+          <button
+            onClick={() => {
+              setOpen(!open);
+            }}
+          >
+            {open ? <img src={close} alt="" /> : <img src={burger} alt="" />}
           </button>
           <Link to="/">
             <img src={logo} alt="" />
@@ -63,32 +70,54 @@ export function Header() {
         </div>
       </div>
       <div className="header-line"></div>
-      <div className="container">
-        <div className="header-top-info">
-          <div className="header-top-info-address">
-            <img src={gps} alt="location" />
-            <div className="header-top-info-address-text">
-              <p className="header-top-info-address-text-head">г. Кокчетав, ул. Ж. Ташенова 129Б</p>
-              <p className="header-top-info-email-text-parag">(Рынок Восточный)</p>
-            </div>
-          </div>
+      {open && (
+        <>
+          <div className="container">
+            <div className="header-top-info">
+              <div className="header-top-info-address">
+                <img src={gps} alt="location" />
+                <div className="header-top-info-address-text">
+                  <p className="header-top-info-address-text-head">
+                    г. Кокчетав, ул. Ж. Ташенова 129Б
+                  </p>
+                  <p className="header-top-info-email-text-parag">(Рынок Восточный)</p>
+                </div>
+              </div>
 
-          <div className="header-top-info-email">
-            <img src={email} alt="email" />
-            <div className="header-top-info-email-text">
-              <p className="header-top-info-email-text-head">opt.sultan@mail.ru</p>
-              <p className="header-top-info-email-text-parag">На связи в любое время</p>
+              <div className="header-top-info-email">
+                <img src={email} alt="email" />
+                <div className="header-top-info-email-text">
+                  <p className="header-top-info-email-text-head">opt.sultan@mail.ru</p>
+                  <p className="header-top-info-email-text-parag">На связи в любое время</p>
+                </div>
+              </div>
+              <div className="header-top-info-phone">
+                <img src={headerPhone} alt="email" />
+                <div className="header-top-info-email-text">
+                  <p className="header-top-info-email-text-head">Отдел продаж</p>
+                  <p className="header-top-info-email-text-parag">+7 (777) 490-00-91</p>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="header-top-info-phone">
-            <img src={headerPhone} alt="email" />
-            <div className="header-top-info-email-text">
-              <p className="header-top-info-email-text-head">Отдел продаж</p>
-              <p className="header-top-info-email-text-parag">+7 (777) 490-00-91</p>
+            <div className="headerm-call">
+              <img src={headerTel} alt="" />
+              <p>Заказать звонок</p>
             </div>
+            <div className="headerm-line"></div>
+            <div className="headerm-menu">
+              <p>Меню сайта:</p>
+              <p>О компании</p>
+              <p>Доставка и оплата</p>
+              <p>Возврат</p>
+              <p>Контакты</p>
+            </div>
+            <button className="headerm-download">
+              Прайс-лист
+              <img src={arrowDown} alt="" />
+            </button>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </header>
   ) : (
     <header className="header">

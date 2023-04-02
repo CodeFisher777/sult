@@ -13,4 +13,6 @@ export interface FilterSliceState {
   categoryId: string;
   currentPage: number;
   sort: Sort;
+  minPrice: number;
+  maxPrice: number;
 }

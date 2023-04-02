@@ -14,7 +14,7 @@ import { useMediaQuery } from 'react-responsive';
 
 function App() {
   const location = useLocation();
-  const isMobile = useMediaQuery({ query: '(max-width:720px)' });
+  const isMobile = useMediaQuery({ query: '(max-width:950px)' });
   return (
     <>
       <div className="wrapper">

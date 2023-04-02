@@ -7,8 +7,6 @@ type PaginationProps = {
 };
 
 export const Pagination: React.FC<PaginationProps> = ({ currentPage, onChangePage }) => {
-  const { items, status } = useSelector(selectCard);
-  console.log(items.length);
   return (
     <ReactPaginate
       className="pagination"

@@ -29,7 +29,7 @@ export const NameAndSort: React.FC<SortPopupProps> = React.memo(({ value }) => {
 
   const [open, setOpen] = React.useState(false);
   const sortRef = React.useRef<HTMLDivElement>(null);
-  const isMobile = useMediaQuery({ query: '(max-width:720px)' });
+  const isMobile = useMediaQuery({ query: '(max-width:950px)' });
   const onClickListItem = (obj: SortItem) => {
     dispatch(setSort(obj));
     setOpen(false);

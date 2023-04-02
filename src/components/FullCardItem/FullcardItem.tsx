@@ -9,6 +9,7 @@ import { selectCartItemById } from '../../redux/cart/slice';
 import share from '../../assets/images/share.png';
 import download from '../../assets/images/downloadblack.svg';
 import { useMediaQuery } from 'react-responsive';
+import { Back } from '../back';
 type FullcardItemProps = {
   card: {
     id: string;
@@ -32,7 +33,7 @@ export const FullcardItem: React.FC<FullcardItemProps> = ({ card }) => {
   const onPlus = () => {
     setItemCount(itemCount + 1);
   };
-  const isMobile = useMediaQuery({ query: '(max-width:720px)' });
+  const isMobile = useMediaQuery({ query: '(max-width:950px)' });
   const onMinus = () => {
     if (itemCount > 1) {
       setItemCount(itemCount - 1);
@@ -54,6 +55,11 @@ export const FullcardItem: React.FC<FullcardItemProps> = ({ card }) => {
           },
         ]}
       />
+      {isMobile && (
+        <Link to="/">
+          <Back />
+        </Link>
+      )}
       <div className={styles.root}>
         <img className={styles.root__imgmain} src={card.imageUrl} alt="" />
         <div className={styles.root__text}>

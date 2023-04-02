@@ -1,9 +1,8 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { FullcardItem } from '../components/FullCardItem/FullcardItem';
 
 import axios from 'axios';
-import { Back } from '../components/back';
 
 export const FullCard: React.FC = () => {
   const [card, setCard] = React.useState<{
@@ -18,6 +17,7 @@ export const FullCard: React.FC = () => {
     descrition: string;
   }>();
   const { id } = useParams();
+
   React.useEffect(() => {
     async function fetchCard() {
       try {
@@ -34,7 +34,6 @@ export const FullCard: React.FC = () => {
   }
   return (
     <div className="container">
-      <Back />
       <FullcardItem card={card} />
     </div>
   );

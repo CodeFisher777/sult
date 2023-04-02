@@ -1,10 +1,10 @@
 import { Link, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { addItem } from '../../redux/cart/slice';
 import { selectCartItemById } from '../../redux/cart/slice';
 import { CartItem } from '../../redux/cart/types';
-import { fetchRemoveCardRedux } from '../../redux/card/asyncActions';
+import { fetchAdminCardRedux, fetchRemoveCardRedux } from '../../redux/card/asyncActions';
 import { useAppDispatch } from '../../redux/store';
 
 type CardBlockProps = {
@@ -36,7 +36,7 @@ export const CardBlock: React.FC<CardBlockProps> = ({
   const cartItem = useSelector(selectCartItemById(id));
   const addedCount = cartItem ? cartItem.count : 0;
   const location = useLocation();
-
+  const navigate = useNavigate();
   const onClickAdd = () => {
     const item: CartItem = {
       id,
@@ -53,6 +53,11 @@ export const CardBlock: React.FC<CardBlockProps> = ({
   const onClickRemove = () => {
     if (window.confirm('Вы действительно хотите удалить товар?'))
       dispatch(fetchRemoveCardRedux(id));
+    const currentPageStr = '1';
+    const categoryId = 'Уход за телом';
+    setTimeout(() => {
+      dispatch(fetchAdminCardRedux({ currentPageStr, categoryId }));
+    }, 1000);
   };
   return (
     <div className="card-item">
