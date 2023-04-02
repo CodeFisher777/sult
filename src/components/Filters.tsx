@@ -4,8 +4,10 @@ import { Card } from '../redux/card/types';
 import arrowUp from './../assets/images/arrowupmobile.svg';
 import arrowDown from './../assets/images/arrowdownmobile.svg';
 import { CategoriesVertical } from './CategoriesVertical';
-import { setMinPrice, setMaxPrice } from '../redux/filter/slice';
+import { setMinPrice, setMaxPrice, selectFilter } from '../redux/filter/slice';
 import { useAppDispatch } from '../redux/store';
+import { preProcessFile } from 'typescript';
+import { useSelector } from 'react-redux';
 type FiltersProps = {
   items: Card[];
 };
@@ -13,26 +15,21 @@ type FiltersProps = {
 export const Filters: React.FC<FiltersProps> = ({ items }) => {
   const dispatch = useAppDispatch();
   const isMobile = useMediaQuery({ query: '(max-width:950px)' });
-  const [searchValue, setSearchValue] = React.useState('');
-  const [minPriceInput, setMinPriceInput] = React.useState('');
-  const [maxPriceInput, setMaxPriceInput] = React.useState('');
-  const [checkBrand, setCheckBrand] = React.useState('');
-  const [checkedValues, setValues] = React.useState([]);
+  const [searchValue, setSearchValue] = React.useState<string>('');
+  const [minPriceInput, setMinPriceInput] = React.useState<string>('');
+  const [maxPriceInput, setMaxPriceInput] = React.useState<string>('');
+  const [checkBrand, setCheckBrand] = React.useState<Card[]>([]);
+  const [checkedValues, setValues] = React.useState<string[]>([]);
   const [length, setLength] = React.useState([]);
 
   //@ts-ignore
-  const uniqArrBrand: [] = [...new Set(items.map((items) => items.brand))];
-  const [open, setOpen] = React.useState(true);
-  const [filteredBrand, setFilteredBrand] = React.useState([]);
-
+  const uniqArrBrand: string[] = [...new Set<string>(items.map((items) => items.brand))];
+  const [open, setOpen] = React.useState<boolean>(true);
+  const [filteredBrand, setFilteredBrand] = React.useState<string[]>([]);
+  const [lengthBrand, setLengthBrand] = React.useState<number[]>([]);
+  console.log(lengthBrand);
   //открытие брэндов
-  const [openBrand, setOpenBrand] = React.useState(false);
-  let ulClasses = ['filters-brand-checkboxes'];
-  if (openBrand) {
-    ulClasses = ['filters-brand-checkboxes active'];
-  } else {
-    ulClasses = ['filters-brand-checkboxes'];
-  }
+  const [openBrand, setOpenBrand] = React.useState<boolean>(false);
   const onChangeOpen = (event: React.MouseEvent<HTMLLabelElement>) => {
     if (uniqArrBrand.length > 4) {
       setOpenBrand(!openBrand);
@@ -41,28 +38,29 @@ export const Filters: React.FC<FiltersProps> = ({ items }) => {
     }
   };
 
-  //показать отфильтрованный по тцене
-  const onShowFiltered = (event: React.MouseEvent<HTMLButtonElement>) => {
-    dispatch(setMinPrice(Number(minPriceInput)));
-    dispatch(setMaxPrice(Number(maxPriceInput)));
-  };
+  //показать отфильтрованный по цене
+
   const delFilters = () => {
     dispatch(setMinPrice(0));
     dispatch(setMaxPrice(0));
+    setMinPriceInput('');
+    setMaxPriceInput('');
+    setSearchValue('');
+    setFilteredBrand([]);
+    setCheckBrand([]);
   };
   const arrPrice = items.map((item) => item.price);
 
   //поиск брэнда
   const onSearch = (event: React.MouseEvent<HTMLButtonElement>) => {
     setFilteredBrand(
-      uniqArrBrand.filter((item: string) => item.toLowerCase() == searchValue.toLowerCase()),
+      uniqArrBrand.filter((item: string) => item.toLowerCase().includes(searchValue.toLowerCase())),
     );
   };
   const arrRender = filteredBrand.length !== 0 ? filteredBrand : uniqArrBrand;
-  const handleChange = (event: any) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = event.target;
     if (checked) {
-      //@ts-ignore
       setValues((pre) => [...pre, value]);
     } else
       setValues((pre) => {
@@ -70,6 +68,16 @@ export const Filters: React.FC<FiltersProps> = ({ items }) => {
       });
   };
 
+  const onShowFiltered = (event: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(setMinPrice(Number(minPriceInput)));
+    dispatch(setMaxPrice(Number(maxPriceInput)));
+    checkedValues.forEach((name) => {
+      const a = items.filter((item) => item.brand === name);
+      //@ts-ignore
+      setCheckBrand((pre) => [...pre, a]);
+    });
+    console.log(checkBrand);
+  };
   return (
     <div className="filters">
       <div className="filters-head">
@@ -91,6 +99,7 @@ export const Filters: React.FC<FiltersProps> = ({ items }) => {
           </p>
           <div className="filters-price">
             <input
+              value={minPriceInput}
               onChange={(event: ChangeEvent<HTMLInputElement>) =>
                 setMinPriceInput(event.target.value)
               }
@@ -99,6 +108,7 @@ export const Filters: React.FC<FiltersProps> = ({ items }) => {
             />
             <div>-</div>
             <input
+              value={maxPriceInput}
               onChange={(event: ChangeEvent<HTMLInputElement>) =>
                 setMaxPriceInput(event.target.value)
               }
@@ -110,6 +120,7 @@ export const Filters: React.FC<FiltersProps> = ({ items }) => {
             <p className="filters-brand-firstp">Бренд</p>
             <div className="filters-brand-search">
               <input
+                value={searchValue}
                 onChange={(event: ChangeEvent<HTMLInputElement>) =>
                   setSearchValue(event.target.value)
                 }
@@ -121,10 +132,9 @@ export const Filters: React.FC<FiltersProps> = ({ items }) => {
               </button>
             </div>
             <ul
-              //@ts-ignore
-              className={ulClasses}
+              className={openBrand ? 'filters-brand-checkboxes active' : 'filters-brand-checkboxes'}
             >
-              {arrRender.map((brand: string, i) => (
+              {arrRender.map((brand: string, i: number) => (
                 <li key={i}>
                   <input type="checkbox" value={brand} onChange={handleChange} />
                   <p className="filters-brand-checkboxes-name">{brand}</p>
