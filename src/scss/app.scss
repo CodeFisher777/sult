@@ -157,7 +157,7 @@ body {
   justify-content: space-between;
 }
 .lorem {
-  width: 910px;
+  max-width: 910px;
   line-height: 21px;
   padding-bottom: 100px;
   @media (max-width: 950px) {

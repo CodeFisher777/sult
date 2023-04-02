@@ -6,6 +6,20 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @media (max-width: 950px) {
+      display: grid;
+
+      grid-template-columns: repeat(4, 1fr);
+
+      grid-column-gap: 5px;
+      grid-row-gap: 10px;
+      row-gap: 5px;
+      justify-items: center;
+    }
+    @media (max-width: 580px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
     li {
       width: 120px;
       height: 70px;
