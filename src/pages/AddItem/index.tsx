@@ -52,7 +52,10 @@ export const AddItem = () => {
         ? await axios.put(`${process.env.REACT_APP_API_URL}/items/${id}`, fields)
         : axios.post(`${process.env.REACT_APP_API_URL}/items`, fields);
       const path = isEditing ? `/card/${id}` : '/';
-      navigate(path);
+
+      setTimeout(() => {
+        navigate(path);
+      }, 1000);
     } catch (err) {
       console.warn(err);
       alert('Ошибка при  создании продукта');
