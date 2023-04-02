@@ -49,8 +49,8 @@ export const AddItem = () => {
       };
       //@ts-ignore
       const { data } = isEditing
-        ? await axios.put(`https://641e8eecad55ae01ccabd4a2.mockapi.io/items/${id}`, fields)
-        : axios.post('https://641e8eecad55ae01ccabd4a2.mockapi.io/items', fields);
+        ? await axios.put(`${process.env.REACT_APP_API_URL}/items/${id}`, fields)
+        : axios.post(`${process.env.REACT_APP_API_URL}/items`, fields);
       const path = isEditing ? `/card/${id}` : '/';
       navigate(path);
     } catch (err) {
@@ -61,7 +61,7 @@ export const AddItem = () => {
   React.useEffect(() => {
     if (id) {
       axios
-        .get(`https://641e8eecad55ae01ccabd4a2.mockapi.io/items/${id}`)
+        .get(`${process.env.REACT_APP_API_URL}/items/${id}`)
         .then(({ data }) => {
           setTitle(data.title);
           setImageUrl(data.imageUrl);

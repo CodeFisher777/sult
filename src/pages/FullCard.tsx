@@ -21,7 +21,7 @@ export const FullCard: React.FC = () => {
   React.useEffect(() => {
     async function fetchCard() {
       try {
-        const { data } = await axios.get('https://641e8eecad55ae01ccabd4a2.mockapi.io/items/' + id);
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/items/` + id);
         setCard(data);
       } catch (error) {
         alert('Ошибка при получении товара');

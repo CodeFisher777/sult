@@ -7,7 +7,7 @@ export const fetchCardRedux = createAsyncThunk<Card[], SearchCardParams>(
   async (params) => {
     const { order, sortBy, categoryId, currentPage } = params;
     const { data } = await axios.get<Card[]>(
-      `https://641e8eecad55ae01ccabd4a2.mockapi.io/items?page=${currentPage}&limit=6&category=${categoryId}&sortBy=${sortBy}&order=${order}`,
+      `${process.env.REACT_APP_API_URL}/items?page=${currentPage}&limit=6&category=${categoryId}&sortBy=${sortBy}&order=${order}`,
     );
 
     return data;
@@ -21,7 +21,7 @@ export const fetchAdminCardRedux = createAsyncThunk<Card[], AdminCardParams>(
     const { categoryId, currentPageStr } = params;
 
     const { data } = await axios.get<Card[]>(
-      `https://641e8eecad55ae01ccabd4a2.mockapi.io/items?page=${currentPageStr}&limit=6&category=${categoryId}`,
+      `${process.env.REACT_APP_API_URL}/items?page=${currentPageStr}&limit=6&category=${categoryId}`,
     );
 
     return data;
@@ -32,8 +32,6 @@ export const fetchRemoveCardRedux = createAsyncThunk<Card[], string>(
   'card/fetchRemoveCardRedux',
   //@ts-ignore
   async (id) => {
-    const { data } = await axios.delete<Card[]>(
-      `https://641e8eecad55ae01ccabd4a2.mockapi.io/items/${id}`,
-    );
+    const { data } = await axios.delete<Card[]>(`${process.env.REACT_APP_API_URL}/items/${id}`);
   },
 );
